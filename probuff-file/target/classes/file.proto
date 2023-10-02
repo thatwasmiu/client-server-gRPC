@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_package = "grpc";
+
+service file {
+  rpc getFile(Params) returns (Files);
+
+  rpc downloadFile(Params) returns (stream DataChunk);
+}
+
+message Params {}
+
+message Content {
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message Files {
+  repeated Content contents = 1;
+}
+
+message DataChunk {
+  bytes data = 1;
+  int32 size = 2;
+}
